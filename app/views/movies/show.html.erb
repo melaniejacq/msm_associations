@@ -17,90 +17,50 @@
       <dt>Description</dt>
       <dd><%= @movie.description %></dd>
 
-      <dt>Number of Characters</dt>
-      <dd><%= Character.where(:movie_id=> @movie.id).count %></dd>
-
-      <dt>Characters</dt>
-      <dd>
-        <ul>
-          <% Character.where(:movie_id => @movie.id).each do |character| %>
-            <li><a href="/characters/<%= character.id %>"><%= character.name %></a></li>
-          <% end %>
-        </ul>
-      </dd>
-      
-      
-<!--Beginning of new character form-->
-
-<div class="row">
-  <div class="col-md-12">
-    <form action="/create_character" method="post">
-      <!-- Hidden input for authenticity token to protect from forgery -->
-      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-      <!-- Label and input for movie_id -->
-      <div class="form-group">
-        <label for="movie_id" class="control-label">
-          Movie
-        </label>
-
-      <!--<input type="text" id="movie_id" name="movie_id" placeholder="Movie" class="form-control" value="<%= @character.movie_id %>">-->
-      <%= select_tag("movie_id", options_from_collection_for_select(Movie.all, :id, :title, @character.movie_id), :class => "form-control") %>
-
-        <p class="help-block">
-          <a href="/movies/new">or add a new movie</a>
-        </p>
-      
-      </div>
-      
-
-    <!--End of new character form-->
-      
-      <!-- Label and input for actor_id -->
-      <div class="form-group">
-        <label for="actor_id" class="control-label">
-          Actor
-        </label>
-
-        <input type="text" id="actor_id" name="actor_id" placeholder="Actor" class="form-control" value="<%= @character.actor_id %>">
-        
-        <p class="help-block">
-          <a href="/actors/new">or add a new movie</a>
-        </p>
-
-      </div>
-
-      <!-- Label and input for name -->
-      <div class="form-group">
-        <label for="name" class="control-label">
-          Name
-        </label>
-
-        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @character.name %>">
-      </div>
-
-      <button class="btn btn-success">
-        Create Character
-      </button>
-      or
-      <a href="/characters">Cancel</a>
-    </form>
-  </div>
-</div>
-
-
       <dt>Image url</dt>
       <dd><%= @movie.image_url %></dd>
 
       <dt>Director</dt>
       <dd>
         <a href="/directors/<%= @movie.director_id %>">
-          <%= Director.find_by(:id => @movie.director_id).name %>
+          <!--new way...-->
+          <%= @movie.director.name %>
         </a>
       </dd>
-
     </dl>
 
+<!--BEGINNING OF ADD NEW CHARACTER-->
+        
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_character" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for title -->
+      <div class="form-group">
+        <label for="title" class="control-label">
+          Name
+        </label>
+
+        <input type="text" id="title" name="title" placeholder="Name" class="form-control" value="<%= @movie.title %>">
+      </div>
+
+      <!-- Label and input for director_id -->
+        <input type="hidden" name="movie_id" value="<%= @movie.id %>">
+    </div>
+          
+      <button class="btn btn-success">
+        Add a New Character
+      </button>
+      or
+      <a href="/characters">Cancel</a>
+    </form>
+  </div>
+</div>
+      
+<!--END OF ADD NEW-->
+        
     <div class="btn-group btn-group-justified">
       <a href="/movies" class="btn btn-primary">
         Back
@@ -114,3 +74,9 @@
     </div>
   </div>
 </div>
+
+<ul>
+  <% Character.where(:movie_id => @movie.id).each do |character| %>
+    <li><%= Actor.find_by(:id => character.actor_id).name %></li>
+    <% end %>
+</ul>

@@ -11,6 +11,9 @@
       <dt>Dob</dt>
       <dd><%= @actor.dob %></dd>
 
+      <dt> Number of movies</dt>
+      <dd><%= Character.where(:actor_id => @actor.id).count %></dd>
+
       <dt>Bio</dt>
       <dd><%= @actor.bio %></dd>
 
