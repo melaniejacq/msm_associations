@@ -3,7 +3,6 @@ class Character < ApplicationRecord
 # character belongs to a MOVIE
     belongs_to(:movie, :class_name=> "Movie", :foreign_key => "movie_id")
 
-
 # one character belongs to one actor. When somebody calls the method .actor, go query the column called actor id
     belongs_to(:actor, :class_name => "Actor", :foreign_key => "actor_id")
 
