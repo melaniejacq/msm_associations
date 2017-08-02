@@ -35,3 +35,13 @@
     </div>
   </div>
 </div>
+
+<!--Code from director page to list movies and add a movie-->
+
+
+  <% Character.where(:actor_id => @actor.id).each do |character| %>
+	 <%= Movie.find(character.movie_id).title %>
+	 <li>
+	   <a href="/movies/<%= @movie.id %>"><%= @movie.title %></a>
+	 </li>
+<% end %>

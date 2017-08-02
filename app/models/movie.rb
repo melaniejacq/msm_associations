@@ -5,8 +5,6 @@ class Movie < ApplicationRecord
 #  - one movie has many actors through characters
     has_many(:actors, :through => :characters)
 
-
-
 #  - director_id: must be present
     validates :director_id, :presence => true
 
