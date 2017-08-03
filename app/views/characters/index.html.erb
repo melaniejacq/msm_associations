@@ -21,7 +21,7 @@
         <td><%= Movie.find_by(:id => character.movie_id).title %></td>
 
         <!--<td><%= character.actor_id %></td>-->
-        <td><%= Actor.find_by(:id => character.actor_id).name.try(:name) %></td>
+        <td><%= Actor.find_by(:id => character.actor_id).try(:name) %></td>
         
         <td><%= character.name %></td>
         <td>
