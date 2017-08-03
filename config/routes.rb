@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   # READ
   get "/movies", :controller => "movies", :action => "index"
   get "/movies/:id", :controller => "movies", :action => "show"
+  post "/create_movie", :controller => "movies", :action => "create"
 
   # UPDATE
   get "/movies/:id/edit", :controller => "movies", :action => "edit"
